@@ -21,7 +21,15 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+
+  const userHas10TodoRegistered = user.todos.length >= 10;
+
+  if (!userHas10TodoRegistered || user.pro) {
+    next();
+  }
+
+  return response.status(403).json();
 }
 
 function checksTodoExists(request, response, next) {
